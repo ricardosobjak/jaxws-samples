@@ -1,0 +1,185 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>br.edu.utfpr.jaxws.hora</groupId>
+	<artifactId>jaxws-hora-rpc-container</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+
+	<name>jaxws-hora-rpc-container</name>
+
+	<repositories>
+		<repository>
+			<id>maven-repository.java.net</id>
+			<name>Java.net Repository for Maven 1</name>
+			<url>http://download.java.net/maven/1/</url>
+			<layout>legacy</layout>
+		</repository>
+		<repository>
+			<id>maven2-repository.java.net</id>
+			<name>Java.net Repository for Maven 2</name>
+			<url>http://download.java.net/maven/2/</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven2-repository.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+			<layout>default</layout>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<properties>
+		<version.java>1.8</version.java>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<jaxb.version>2.2.7</jaxb.version>
+		<version.junit>4.11</version.junit>
+
+		<!-- Project -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml.ws</groupId>
+			<artifactId>jaxws-api</artifactId>
+			<version>2.2.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>2.2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>policy</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.gmbal</groupId>
+			<artifactId>gmbal</artifactId>
+			<version>4.0.0-b001</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.ha</groupId>
+			<artifactId>ha-api</artifactId>
+			<version>3.1.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>${jaxb.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>${jaxb.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.stream.buffer</groupId>
+			<artifactId>streambuffer</artifactId>
+			<version>1.5.3</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${version.junit}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>${basedir}/src/main/webresources</directory>
+						</resource>
+					</webResources>
+					<warName>helloplanet-jaxws</warName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>1.11</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsgen</goal>
+						</goals>
+						<configuration>
+							<sei>br.com.exemplo.ws.impl.HelloPlanetImpl</sei>
+							<genWsdl>true</genWsdl>
+							<keep>true</keep>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugin</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											jaxws-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.11,)
+										</versionRange>
+										<goals>
+											<goal>wsgen</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

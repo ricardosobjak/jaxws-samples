@@ -1,0 +1,1 @@
+wsgen -cp bin -s src -d bin -keep br.edu.utfpr.ws.equipe.Equipes

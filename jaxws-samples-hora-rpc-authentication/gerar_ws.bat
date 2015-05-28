@@ -1,0 +1,1 @@
+wsgen -classpath build/classes/ ws.ExampleWS -wsdl -s ./src -d ./build/classes/

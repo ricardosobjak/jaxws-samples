@@ -1,0 +1,1 @@
+wsimport -keep http://localhost:9876/ts?wsdl -d "C:\Users\UTFPR\Google Drive\AppRepository\WebServices\JAX-WS\WS_JaxWs_TimeServer1_Client\src"
